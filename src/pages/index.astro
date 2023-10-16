@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets"
+import Layout from "../layout/Layout.astro"
+import sanity from "../components/sanity"
+
+const products = await sanity.fetch(`
+   *[_type=="products"][0..2]{
+      title,
+      "slug":slug.current,
+      "image":images[0]{asset->{url}},
+    }
+`)
+---
+
+<Layout title="Home">
+  <header>
+    <div>
+      <h1>Soneji Creation</h1>
+      <p>Your Gateway to Exquisite Creations</p>
+    </div>
+    <div>
+      <Image
+        width={500}
+        height={300}
+        quality={"low"}
+        src="https://as1.ftcdn.net/v2/jpg/03/65/42/54/1000_F_365425497_3RNg4T1W0eDE0tHZSeUHAq3NGWOEGQBA.jpg"
+        alt="HeroImage"
+      />
+    </div>
+  </header>
+  <section class="container mt-5">
+    <h1 class="heading">Hot Picks</h1>
+    <div class="grid mt-2">
+      {
+        products.map((all) => (
+          <a href={`/shop/${all.slug}`} class="card radius flex flex-column">
+            <Image
+              alt={all.slug}
+              src={all.image.asset.url}
+              width={400}
+              height={400}
+            />
+            <h3 style="padding: 1rem;" class="flex flex-1 align-center">
+              {all.title}
+            </h3>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  header {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+  }
+
+  header h1 {
+    font-size: 4rem;
+  }
+
+  header img {
+    object-fit: cover;
+  }
+  .card {
+    border: var(--border);
+    box-shadow: 0 10px 30px var(--nuetral);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    text-transform: capitalize;
+  }
+  .card img {
+    margin-inline: auto;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+</style>

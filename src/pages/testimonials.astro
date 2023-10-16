@@ -1,0 +1,152 @@
+---
+import { Image } from "astro:assets"
+import sanity from "../components/sanity"
+import Layout from "../layout/Layout.astro"
+
+{
+  /*const testimonials = [
+  {
+    username: "John Doe",
+    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+    review:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
+  },
+  {
+    username: "John Doe",
+    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+    review:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
+  },
+  {
+    username: "John Doe",
+    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+    review:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
+  },
+  {
+    username: "John Doe",
+    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+    review:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
+  },
+  {
+    username: "John Doe",
+    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+    review:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
+  },
+  {
+    username: "John Doe",
+    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+    review:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
+  },
+]*/
+}
+
+const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
+  "avatar":avatar{asset->{url}},
+  username,
+  review
+}`)
+---
+
+<Layout title="Testimonials">
+  <section class="container testimonials">
+    <h2 class="heading">Testimonials</h2>
+    <div class="grid">
+      {
+        testimonials.map((elems) => (
+          <div class="testimonial_card radius">
+            <div class="flex align-center gap">
+              {elems.avatar && (
+                <Image
+                  width={50}
+                  height={50}
+                  loading="lazy"
+                  decoding="async"
+                  src={elems.avatar.asset.url}
+                  alt="Avatar"
+                />
+              )}
+              <h3>{elems.username}</h3>
+            </div>
+            <p style="margin-top: 0.5rem;">{elems.review}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+  <section class="container mt-5">
+    <h2 class="heading text-center">Write a Review</h2>
+    <form class="gap reviewForm">
+      <!-- <input type="file" class="avatarImg" accept="image/png, image/jpeg" /> -->
+      <input
+        minlength="6"
+        required
+        placeholder="Username"
+        class="username"
+        type="text"
+      />
+      <textarea
+        minlength="10"
+        rows="5"
+        required
+        placeholder="Type here"
+        class="review"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  const reviewForm = document.querySelector<HTMLFormElement>(".reviewForm")
+  // const avatarImg = document.querySelector<HTMLInputElement>(".avatarImg")
+  const username = document.querySelector<HTMLInputElement>(".username")
+  const review = document.querySelector<HTMLInputElement>(".review")
+
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    // if (avatarImg.files[0].size > 1048576) {
+    //   alert("Image Should be Below 1Mb")
+    //   return false
+    // }
+
+    try {
+      const res = await fetch("/api/testimonial", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _type: "testimonials",
+          username: username.value,
+          review: review.value,
+        }),
+      })
+      if (res.status === 200) {
+        alert("Thanks For Reviewing Us")
+        reviewForm.reset()
+      }
+    } catch (error) {
+      alert(error.message)
+    }
+  })
+</script>
+
+<style>
+  .testimonial_card {
+    padding: 1rem;
+    border: var(--border);
+    box-shadow: 0 10px 30px var(--nuetral);
+  }
+  .testimonial_card img {
+    object-fit: cover;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+  }
+</style>

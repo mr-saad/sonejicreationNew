@@ -1,0 +1,122 @@
+---
+import Layout from "../../layout/Layout.astro"
+import sanity from "../../components/sanity"
+import { Image } from "astro:assets"
+
+const products = await sanity.fetch(`
+   *[_type=="products"]{
+      title,
+      "slug":slug.current,
+      "image":images[0]{asset->{url}},
+    }
+`)
+
+type ElemType = {
+  title: string
+  slug: string
+  image: {
+    asset: {
+      url: string
+    }
+  }
+}
+---
+
+<Layout title="Shop">
+  <section class="container shop">
+    <h2 class="heading">Shop</h2>
+    <div class="grid">
+      {
+        products.map((elems: ElemType) => {
+          return (
+            <a
+              href={`/shop/${elems.slug}`}
+              class="card radius flex flex-column"
+            >
+              {elems.image && (
+                <Image
+                  quality={"mid"}
+                  width={400}
+                  height={400}
+                  src={elems.image.asset.url}
+                  alt={elems.slug}
+                />
+              )}
+              <h3 class="details flex flex-1 align-center">{elems.title}</h3>
+            </a>
+          )
+        })
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .card {
+    border: var(--border);
+    box-shadow: 0 10px 30px var(--nuetral);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card img {
+    margin-inline: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .card .details {
+    padding: 1rem;
+  }
+  .card h3 {
+    text-transform: capitalize;
+  }
+</style>
+
+<!-- const products = [
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
+    title: "Lorem, ipsum dolor.",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
+  },
+] -->

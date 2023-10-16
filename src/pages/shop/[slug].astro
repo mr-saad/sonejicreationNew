@@ -1,0 +1,166 @@
+---
+import Layout from "../../layout/Layout.astro"
+import sanity from "../../components/sanity"
+import { Image } from "astro:assets"
+import { PortableText } from "astro-portabletext"
+
+const product = await sanity.fetch(
+  `
+  *[_type=="products" && slug.current==$slug][0]{
+    _id,
+    title,
+    "slug":slug.current,
+    "images":images[]{asset->{url}},
+    blockContent
+  }
+`,
+  { slug: Astro.params.slug }
+)
+---
+
+<Layout title={product.title}>
+  <div class="container">
+    <p>
+      {Astro.url.pathname}
+    </p>
+
+    <div class="card flex mt-2 gap2">
+      <div class="flex-1">
+        {
+          product.images && (
+            <Image
+              width={400}
+              height={400}
+              alt={product.slug}
+              src={product.images[0].asset.url}
+              class="radius"
+            />
+          )
+        }
+        <h2 class="capitalize">{product.title}</h2>
+        {product.blockContent && <PortableText value={product.blockContent} />}
+        <button id="purchaseBtn" type="button" class="radius self-start"
+          >Buy Now</button
+        >
+      </div>
+      <form class="bookForm">
+        <div class="input-group">
+          <label for="fullname">Full Name</label>
+          <input
+            minlength="6"
+            maxlength="12"
+            required
+            type="text"
+            id="fullname"
+          />
+        </div>
+        <div class="input-group">
+          <label for="email">E-Mail</label>
+          <input required type="email" id="email" />
+        </div>
+        <div class="input-group">
+          <label for="phone">Phone</label>
+          <input
+            required
+            maxlength="10"
+            minlength="10"
+            type="text"
+            id="phone"
+          />
+        </div>
+        <div class="input-group">
+          <label for="address">Address</label>
+          <textarea required id="address"></textarea>
+        </div>
+        <input type="hidden" value={product.title} id="title" />
+        <input type="hidden" value={product._id} id="productId" />
+        <button id="confirmBtn" type="submit">Confirm</button>
+      </form>
+    </div>
+  </div>
+</Layout>
+<script>
+  const bookForm = document.querySelector<HTMLFormElement>(".bookForm")
+
+  const purchaseBtn = document.getElementById("purchaseBtn")
+  const confirmBtn = document.querySelector<HTMLButtonElement>("#confirmBtn")
+  purchaseBtn.addEventListener("click", () => {
+    document.querySelector(".bookForm").classList.toggle("show")
+  })
+
+  bookForm.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    confirmBtn.disabled = true
+    const fullname =
+        document.querySelector<HTMLInputElement>("#fullname").value,
+      email = document.querySelector<HTMLInputElement>("#email").value,
+      phone = document.querySelector<HTMLInputElement>("#phone").value,
+      address = document.querySelector<HTMLInputElement>("#address").value,
+      title = document.querySelector<HTMLInputElement>("#title").value,
+      productId = document.querySelector<HTMLInputElement>("#productId").value
+
+    const bookObj = {
+      fullname,
+      email,
+      phone,
+      address,
+      productId: productId,
+      productTitle: title,
+    }
+    const values = Object.entries(bookObj).map(([key, value]) => value)
+
+    try {
+      const res = await fetch("/api/shop", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+      if (res.status === 200) {
+        const data = await res.json()
+        alert(data.message)
+        bookForm.reset()
+      }
+    } catch (error) {
+      alert(error.message)
+    } finally {
+      confirmBtn.disabled = false
+    }
+  })
+</script>
+
+<style>
+  /* .card {
+    border: 1px solid;
+  } */
+
+  .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .bookForm {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    width: 100%;
+    gap: 1rem;
+    height: 0;
+  }
+  .bookForm.show {
+    visibility: visible;
+    pointer-events: all;
+    opacity: 1;
+    height: auto;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: 786px) {
+    .card {
+      flex-direction: column;
+    }
+  }
+</style>

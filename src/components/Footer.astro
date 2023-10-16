@@ -1,0 +1,96 @@
+---
+import { Image } from "astro:assets"
+---
+
+<footer>
+  <div class="container _footerContainer">
+    <Image
+      quality={"low"}
+      style="object-fit: cover"
+      width={400}
+      height={200}
+      src="https://as1.ftcdn.net/v2/jpg/03/65/42/54/1000_F_365425497_3RNg4T1W0eDE0tHZSeUHAq3NGWOEGQBA.jpg"
+      alt="FooterImage"
+    />
+    <div>
+      <form class="newsLatter">
+        <input type="text" placeholder="Your E-Mail" />
+        <button type="button">Subscribe Now</button>
+      </form>
+      <div class="grid">
+        <div>
+          <h3>Parternership</h3>
+          <ul>
+            <li>Websites</li>
+            <li>Social Media</li>
+            <li>Branding</li>
+          </ul>
+        </div>
+        <div>
+          <h3>About</h3>
+          <ul>
+            <li>Our Projects</li>
+            <li>Careers</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Support</h3>
+          <ul>
+            <li>Support Request</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+      </div>
+      <hr style="margin-top: 2rem" />
+      <div class="copyright flex">
+        <p>All Rights Reserved &copy;Soneji Creation.2023</p>
+        <div>
+          <a href="/terms-conditions">Terms & Conditions</a>{" | "}
+          <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    margin-top: 5rem;
+    border-top: var(--border);
+    box-shadow: 0 -6px 30px var(--nuetral);
+    padding-block: 1rem;
+  }
+  footer img {
+    width: 100%;
+    max-width: 100%;
+  }
+  ul {
+    list-style: none;
+  }
+  ._footerContainer {
+    padding-top: 0;
+    margin-block: 0;
+    display: flex;
+  }
+  .newsLatter {
+    flex-direction: row;
+    margin-block: 2rem;
+  }
+  .copyright {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .copyright a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .copyright > div {
+    margin-block: 1rem;
+  }
+  @media (max-width: 768px) {
+    .copyright {
+      flex-direction: column-reverse;
+    }
+  }
+</style>
