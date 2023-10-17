@@ -209,6 +209,17 @@ nav ul {
   list-style: none;
 }
 
+@media (max-width: 1300px) {
+  nav,
+  main,
+  footer {
+    padding-inline: 1rem;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -276,14 +287,7 @@ nav ul {
     -ms-transform: translateX(0);
     -o-transform: translateX(0);
   }
-  nav,
-  main,
-  footer {
-    padding-inline: 1rem;
-  }
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
+
   ._about {
     flex-direction: column;
   }

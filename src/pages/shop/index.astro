@@ -1,25 +1,18 @@
 ---
 import Layout from "../../layout/Layout.astro"
-import sanity from "../../components/sanity"
 import { Image } from "astro:assets"
+import type { ProductType } from "../index.astro"
 
-const products = await sanity.fetch(`
-   *[_type=="products"]{
-      title,
-      "slug":slug.current,
-      "image":images[0]{asset->{url}},
-    }
-`)
+const baseURL = import.meta.env.SITE || "http://localhost:4321"
 
-type ElemType = {
-  title: string
-  slug: string
-  image: {
-    asset: {
-      url: string
-    }
-  }
-}
+const products = await (
+  await fetch(`${baseURL}/products`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+).json()
 ---
 
 <Layout title="Shop">
@@ -27,7 +20,7 @@ type ElemType = {
     <h2 class="heading">Shop</h2>
     <div class="grid">
       {
-        products.map((elems: ElemType) => {
+        products.map((elems: ProductType) => {
           return (
             <a
               href={`/shop/${elems.slug}`}
