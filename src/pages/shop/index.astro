@@ -3,10 +3,10 @@ import Layout from "../../layout/Layout.astro"
 import { Image } from "astro:assets"
 import type { ProductType } from "../index.astro"
 
-const baseURL = import.meta.env.SITE || "http://localhost:4321"
+const baseURL = import.meta.env.VERCEL_URL || "localhost:4321"
 
 const products = await (
-  await fetch(`${baseURL}/products`, {
+  await fetch(`https://${baseURL}/products`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
