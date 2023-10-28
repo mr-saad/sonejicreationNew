@@ -51,6 +51,12 @@ const pathname = new URL(Astro.request.url).pathname
         </li>
         <li>
           <a
+            class={pathname.includes("/orders") ? "activeLink" : ""}
+            href="/orders">Orders</a
+          >
+        </li>
+        <li>
+          <a
             class={pathname === "/testimonials" ? "activeLink" : ""}
             href="/testimonials">Testimonials</a
           >

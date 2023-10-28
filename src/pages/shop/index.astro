@@ -3,14 +3,16 @@ import Layout from "../../layout/Layout.astro"
 import { Image } from "astro:assets"
 import type { ProductType } from "../index.astro"
 
-const baseURL = import.meta.env.VERCEL_URL || "localhost:4321"
+const baseURL = import.meta.env.VERCEL_URL
+  ? `https://${import.meta.env.VERCEL_URL}`
+  : "http://localhost:4321"
 
 const products = await (
-  await fetch(`https://${baseURL}/products`, {
+  await fetch(`${baseURL}/products`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
 ).json()
 ---
@@ -45,24 +47,13 @@ const products = await (
 </Layout>
 
 <style>
-  .card {
-    border: var(--border);
-    box-shadow: 0 10px 30px var(--nuetral);
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-  }
   .card img {
-    margin-inline: auto;
-    max-width: 100%;
+    width: 100%;
     height: auto;
     object-fit: cover;
   }
   .card .details {
     padding: 1rem;
-  }
-  .card h3 {
-    text-transform: capitalize;
   }
 </style>
 

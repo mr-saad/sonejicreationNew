@@ -3,47 +3,6 @@ import { Image } from "astro:assets"
 import sanity from "../components/sanity"
 import Layout from "../layout/Layout.astro"
 
-{
-  /*const testimonials = [
-  {
-    username: "John Doe",
-    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-    review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
-  },
-  {
-    username: "John Doe",
-    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-    review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
-  },
-  {
-    username: "John Doe",
-    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-    review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
-  },
-  {
-    username: "John Doe",
-    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-    review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
-  },
-  {
-    username: "John Doe",
-    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-    review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
-  },
-  {
-    username: "John Doe",
-    img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-    review:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, a?",
-  },
-]*/
-}
-
 const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
   "avatar":avatar{asset->{url}},
   username,
@@ -78,9 +37,8 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
     </div>
   </section>
   <section class="container mt-5">
-    <h2 class="heading text-center">Write a Review</h2>
+    <h2 class="heading">Write a Review</h2>
     <form class="gap reviewForm">
-      <!-- <input type="file" class="avatarImg" accept="image/png, image/jpeg" /> -->
       <input
         minlength="6"
         required
@@ -101,17 +59,11 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
 
 <script>
   const reviewForm = document.querySelector<HTMLFormElement>(".reviewForm")
-  // const avatarImg = document.querySelector<HTMLInputElement>(".avatarImg")
   const username = document.querySelector<HTMLInputElement>(".username")
   const review = document.querySelector<HTMLInputElement>(".review")
 
   reviewForm.addEventListener("submit", async (e) => {
     e.preventDefault()
-
-    // if (avatarImg.files[0].size > 1048576) {
-    //   alert("Image Should be Below 1Mb")
-    //   return false
-    // }
 
     try {
       const res = await fetch("/api/testimonial", {

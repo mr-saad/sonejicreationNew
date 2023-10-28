@@ -4,8 +4,41 @@ import Layout from "../layout/Layout.astro"
 
 <Layout title="Contact">
   <section class="container">
-    <h2 class="heading mx-auto" style="max-width: 500px">Contact</h2>
-    <form class="gap">
+    <h2 class="heading">Contact Us</h2>
+
+    <p>
+      We'd love to hear from you! Whether you have a question about our
+      creations or need assistance with an order, don't hesitate to reach out.
+    </p>
+
+    <ul>
+      <li>Email: sonejicreation@gmail.com</li>
+
+      <li>Phone: +12345 67890</li>
+    </ul>
+
+    <h2 class="heading mt-2">Connect with Us</h2>
+
+    <div>
+      <p>Follow us on</p>
+      <div class="flex">[Social Media Links]</div>
+    </div>
+
+    <ul>
+      <li>Business Hours: Monday - Saturday: 10:00 AM - 8:00 PM (IST)</li>
+
+      <li>Sunday: Closed</li>
+    </ul>
+    <h2 class="heading mt-2">Visit Us</h2>
+
+    <p>[Store Address]</p>
+
+    <p>
+      Feel free to drop by during our business hours or get in touch through
+      email or phone. We're here to make your experience with Soneji Creation
+      exceptional!
+    </p>
+    <form class="gap mt-2">
       <input required class="radius" placeholder="Username" type="text" /><input
         required
         class="radius"
@@ -21,3 +54,9 @@ import Layout from "../layout/Layout.astro"
     </form>
   </section>
 </Layout>
+
+<style>
+  ul {
+    margin-left: 1rem;
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import { sheets } from "../api/shop"
+import { keys, type keysTypes } from "./index.astro"
+import Layout from "../../layout/Layout.astro"
+import { Image } from "astro:assets"
+const orders = await sheets.spreadsheets.values.get({
+  spreadsheetId: import.meta.env.spreadsheetId,
+  range: "Orders!A2:I"
+})
+const order = orders.data.values.filter(all => {
+  return all[8] === Astro.params.slug
+})
+let orderObject: keysTypes = {
+  fullName: "",
+  email: "",
+  phone: "",
+  address: "",
+  productId: "",
+  productTitle: "",
+  userId: "",
+  productImg: "",
+  orderId: ""
+}
+for (let index = 0; index < keys.length; index++) {
+  orderObject[keys[index]] = order[0][index]
+}
+---
+
+<Layout title="saad">
+  <section class="container">
+    <p>
+      {Astro.url.pathname}
+    </p>
+    <div class="slug_card flex mt-2 gap2">
+      <div class="flex-1">
+        <Image
+          width={400}
+          height={400}
+          alt={orderObject.productTitle}
+          src={orderObject.productImg}
+          class="radius"
+        />
+      </div>
+      <div class="flex-1">
+        <h2 class="capitalize">{orderObject.productTitle}</h2>
+        <p>Full Name: {orderObject.fullName}</p>
+        <p>Email: {orderObject.email}</p>
+        <p>Phone: {orderObject.phone}</p>
+        <div class="flex" style="gap: .35rem;">
+          <p>Address:</p>
+          <p>{orderObject.address}</p>
+        </div>
+        <p>Order ID: {orderObject.orderId}</p>
+        <button type="button" class="mt-2">Cancel Now</button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .slug_card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  @media (max-width: 786px) {
+    .slug_card {
+      flex-direction: column;
+    }
+  }
+</style>
