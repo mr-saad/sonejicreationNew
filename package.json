@@ -13,7 +13,7 @@
     "@astrojs/react": "^3.0.2",
     "@astrojs/vercel": "^5.0.1",
     "@fontsource-variable/bricolage-grotesque": "^5.0.3",
-    "astro": "^3.1.4",
+    "astro": "^3.4.0",
     "astro-portabletext": "^0.9.4",
     "googleapis": "^127.0.0",
     "next-sanity": "^5.5.4",

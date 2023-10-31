@@ -21,7 +21,7 @@ export const POST = async ({ request }) => {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: import.meta.env.spreadsheetId,
-      range: "Orders!A2:G2",
+      range: "Orders!A2:I2",
       valueInputOption: "USER_ENTERED",
       resource: {
         values: [body]

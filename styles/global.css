@@ -18,13 +18,16 @@ p {
   --transition: 200ms linear;
 }
 main {
-  min-height: 100vh;
+  min-height: 85vh;
 }
 strong {
   color: #000;
 }
 
 /* utilities */
+.font-block {
+  font-display: block;
+}
 .text-center {
   text-align: center;
 }

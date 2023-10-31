@@ -7,7 +7,7 @@ const baseURL = import.meta.env.VERCEL_URL
   : "http://localhost:4321"
 
 const products = await (
-  await fetch(`${baseURL}/products?count=2`, {
+  await fetch(`${baseURL}/api/products?count=2`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -79,7 +79,7 @@ export type ProductType = {
   }
 
   header h1 {
-    font-size: 4rem;
+    font-size: 3.65rem;
   }
 
   header img {

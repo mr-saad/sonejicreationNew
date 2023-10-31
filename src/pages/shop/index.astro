@@ -8,7 +8,7 @@ const baseURL = import.meta.env.VERCEL_URL
   : "http://localhost:4321"
 
 const products = await (
-  await fetch(`${baseURL}/products`, {
+  await fetch(`${baseURL}/api/products`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"

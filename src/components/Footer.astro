@@ -80,7 +80,11 @@ import { Image } from "astro:assets"
   }
   .copyright a {
     text-decoration: none;
-    color: inherit;
+    color: #666;
+    transition: var(--transition);
+  }
+  .copyright a:hover {
+    color: #000;
   }
   .copyright > div {
     margin-block: 1rem;

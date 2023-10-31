@@ -51,7 +51,8 @@ for (let index = 0; index < keys.length; index++) {
           <p>{orderObject.address}</p>
         </div>
         <p>Order ID: {orderObject.orderId}</p>
-        <button type="button" class="mt-2">Cancel Now</button>
+        <input type="hidden" id="orderId" value={orderObject.orderId} />
+        <button id="cancelBtn" type="button" class="mt-2">Cancel Now</button>
       </div>
     </div>
   </section>
@@ -69,3 +70,28 @@ for (let index = 0; index < keys.length; index++) {
     }
   }
 </style>
+
+<script>
+  const cancelBtn = document.getElementById("cancelBtn") as HTMLButtonElement,
+    orderId = document.getElementById("orderId") as HTMLInputElement
+  cancelBtn.addEventListener("click", async e => {
+    cancelBtn.disabled = true
+    const confirmCancel = confirm("Your Order Will Be Canceled, Sure?")
+    if (confirmCancel) {
+      try {
+        const res = await fetch("/api/cancelOrder", {
+          method: "post",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({ orderId: orderId.value })
+        })
+        res.status === 200 && location.replace("/orders")
+      } catch (error) {
+        alert(error.message)
+      } finally {
+        cancelBtn.disabled = false
+      }
+    }
+  })
+</script>
