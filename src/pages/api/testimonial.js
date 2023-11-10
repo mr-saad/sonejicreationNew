@@ -1,4 +1,4 @@
-import sanity from "../../components/sanity"
+import sanity from "../../utils/sanity"
 
 export const POST = async ({ request }) => {
   const body = await request.json()

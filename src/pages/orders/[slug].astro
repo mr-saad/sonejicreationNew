@@ -1,6 +1,5 @@
 ---
-export const prerender = false
-import { sheets } from "../api/shop"
+import { sheets } from "../shop/new"
 import { keys, type keysTypes } from "./index.astro"
 import Layout from "../../layout/Layout.astro"
 import { Image } from "astro:assets"
@@ -27,7 +26,7 @@ for (let index = 0; index < keys.length; index++) {
 }
 ---
 
-<Layout title="saad">
+<Layout title={orderObject.productTitle}>
   <section class="container">
     <p>
       {Astro.url.pathname}
@@ -53,7 +52,9 @@ for (let index = 0; index < keys.length; index++) {
         </div>
         <p>Order ID: {orderObject.orderId}</p>
         <input type="hidden" id="orderId" value={orderObject.orderId} />
-        <button id="cancelBtn" type="button" class="mt-2">Cancel Now</button>
+        <button id="cancelBtn" type="button" style="margin-top: 1rem;"
+          >Cancel Now</button
+        >
       </div>
     </div>
   </section>
@@ -68,6 +69,7 @@ for (let index = 0; index < keys.length; index++) {
   @media (max-width: 786px) {
     .slug_card {
       flex-direction: column;
+      gap: 1rem;
     }
   }
 </style>

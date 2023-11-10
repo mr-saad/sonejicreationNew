@@ -3,17 +3,8 @@ export const prerender = true
 import { Image } from "astro:assets"
 import Layout from "../layout/Layout.astro"
 import Product from "../components/Product.astro"
-import sanity from "../components/sanity"
-
-
-const products = await sanity.fetch(
-  `*[_type=="products"][0..2]{
-    title,
-    "slug":slug.current,
-    "image":images[0]{asset->{url}},
-  }
-  `
-)
+import getProducts from "../utils/getProducts"
+const products = await getProducts(2)
 
 export type ProductType = {
   slug: string

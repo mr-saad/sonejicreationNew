@@ -1,4 +1,4 @@
-import { sheets } from "./shop"
+import { sheets } from "../shop/new"
 
 export async function POST({ request }) {
   const { orderId } = await request.json()

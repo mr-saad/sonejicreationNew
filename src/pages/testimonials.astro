@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets"
-import sanity from "../components/sanity"
+import sanity from "../utils/sanity"
 import Layout from "../layout/Layout.astro"
 
 const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
@@ -15,7 +15,7 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
     <h2 class="heading">Testimonials</h2>
     <div class="grid">
       {
-        testimonials.map((elems) => (
+        testimonials.map(elems => (
           <div class="testimonial_card radius">
             <div class="flex align-center gap">
               {elems.avatar && (
@@ -52,30 +52,32 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
         required
         placeholder="Type here"
         class="review"></textarea>
-      <button type="submit">Send</button>
+      <button id="sendBtn" type="submit">Send</button>
     </form>
   </section>
 </Layout>
 
 <script>
-  const reviewForm = document.querySelector<HTMLFormElement>(".reviewForm")
-  const username = document.querySelector<HTMLInputElement>(".username")
-  const review = document.querySelector<HTMLInputElement>(".review")
+  const reviewForm = document.querySelector<HTMLFormElement>(".reviewForm"),
+    username = document.querySelector<HTMLInputElement>(".username"),
+    review = document.querySelector<HTMLInputElement>(".review"),
+    sendBtn = document.querySelector<HTMLButtonElement>("#sendBtn")
 
-  reviewForm.addEventListener("submit", async (e) => {
+  reviewForm.addEventListener("submit", async e => {
     e.preventDefault()
 
+    sendBtn.disabled = true
     try {
       const res = await fetch("/api/testimonial", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           _type: "testimonials",
           username: username.value,
-          review: review.value,
-        }),
+          review: review.value
+        })
       })
       if (res.status === 200) {
         alert("Thanks For Reviewing Us")
@@ -84,6 +86,7 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
     } catch (error) {
       alert(error.message)
     }
+    sendBtn.disabled = false
   })
 </script>
 
@@ -102,3 +105,4 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
     -o-border-radius: 100%;
   }
 </style>
+ ../utils/sanity

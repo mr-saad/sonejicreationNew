@@ -1,7 +1,6 @@
 ---
-export const prerender = false
 import Layout from "../../layout/Layout.astro"
-import { sheets } from "../api/shop"
+import { sheets } from "../shop/new"
 import FilteredOrders from "../../components/FilteredOrders"
 
 const orders = await sheets.spreadsheets.values.get({
@@ -62,3 +61,4 @@ const allOrders = !orders.data.values
     </div>
   </div>
 </Layout>
+ ./shop ../shop/shop ../shop/new

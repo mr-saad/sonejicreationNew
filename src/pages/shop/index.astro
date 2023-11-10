@@ -1,21 +1,10 @@
 ---
-export const prerender = false
 import Layout from "../../layout/Layout.astro"
 import type { ProductType } from "../index.astro"
 import Product from "../../components/Product.astro"
+import getProducts from "../../utils/getProducts"
 
-const baseURL = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : "http://localhost:4321"
-
-const products = await (
-  await fetch(`${baseURL}/api/products`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-).json()
+const products = await getProducts()
 ---
 
 <Layout title="Shop">
@@ -26,14 +15,3 @@ const products = await (
     </div>
   </section>
 </Layout>
-
-<style>
-  .card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  .card .details {
-    padding: 1rem;
-  }
-</style>
