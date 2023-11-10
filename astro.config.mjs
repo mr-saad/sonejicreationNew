@@ -8,6 +8,6 @@ export default defineConfig({
     domains: ["cdn.sanity.io", "as1.ftcdn.net"]
   },
   integrations: [react()],
-  output: "hybrid",
+  output: "server",
   adapter: vercel()
 })
