@@ -3,19 +3,17 @@ export const prerender = true
 import { Image } from "astro:assets"
 import Layout from "../layout/Layout.astro"
 import Product from "../components/Product.astro"
+import sanity from "../components/sanity"
 
-const baseURL = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : "http://localhost:4321"
 
-const products = await (
-  await fetch(`${baseURL}/api/products?count=2`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-).json()
+const products = await sanity.fetch(
+  `*[_type=="products"][0..2]{
+    title,
+    "slug":slug.current,
+    "image":images[0]{asset->{url}},
+  }
+  `
+)
 
 export type ProductType = {
   slug: string
