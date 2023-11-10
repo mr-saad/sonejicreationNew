@@ -1,7 +1,8 @@
 ---
+export const prerender = false
 import Layout from "../../layout/Layout.astro"
-import { Image } from "astro:assets"
 import type { ProductType } from "../index.astro"
+import Product from "../../components/Product.astro"
 
 const baseURL = import.meta.env.VERCEL_URL
   ? `https://${import.meta.env.VERCEL_URL}`
@@ -21,27 +22,7 @@ const products = await (
   <section class="container shop">
     <h2 class="heading">Shop</h2>
     <div class="grid">
-      {
-        products.map((elems: ProductType) => {
-          return (
-            <a
-              href={`/shop/${elems.slug}`}
-              class="card radius flex flex-column"
-            >
-              {elems.image && (
-                <Image
-                  quality={"mid"}
-                  width={400}
-                  height={400}
-                  src={elems.image.asset.url}
-                  alt={elems.slug}
-                />
-              )}
-              <h3 class="details flex flex-1 align-center">{elems.title}</h3>
-            </a>
-          )
-        })
-      }
+      {products.map((all: ProductType) => <Product {...all} />)}
     </div>
   </section>
 </Layout>
@@ -56,51 +37,3 @@ const products = await (
     padding: 1rem;
   }
 </style>
-
-<!-- const products = [
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-  {
-    img: "https://m.media-amazon.com/images/I/715lRionMRL._SL1500_.jpg",
-    title: "Lorem, ipsum dolor.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, consequatur.",
-  },
-] -->

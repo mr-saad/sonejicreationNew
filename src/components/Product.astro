@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets"
+const { slug, image, title } = Astro.props
+---
+
+<a href={`/shop/${slug}`} class="card radius flex flex-column">
+  <Image
+    quality={"mid"}
+    alt={slug}
+    src={image.asset.url}
+    width={400}
+    height={400}
+  />
+  <h2
+    style="padding: 1rem; font-size: 1.1rem;"
+    class="flex flex-1 align-center"
+  >
+    {title}
+  </h2>
+</a>
+
+<style>
+  .card img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

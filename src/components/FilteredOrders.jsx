@@ -3,15 +3,17 @@ import styles from "../../styles/FilteredOrders.module.css"
 
 export default function FilteredOrders({ allOrders }) {
   const [filteredOrders, setFilteredOrders] = useState([])
-  const [mounted, setMounted] = useState(false)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     setFilteredOrders(
       allOrders.filter(all => all.userId === localStorage.getItem("userId"))
     )
-    setMounted(true)
+    setLoading(false)
   }, [])
 
-  return filteredOrders.length > 0
+  return loading
+    ? "Please Wait"
+    : filteredOrders.length > 0
     ? filteredOrders.map(({ productTitle, productImg, orderId }) => (
         <a
           href={"/orders/" + orderId}

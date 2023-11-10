@@ -5,6 +5,7 @@
   line-height: 1.5;
   font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
   text-wrap: balance;
+  font-display: swap;
 }
 li,
 p {
@@ -25,9 +26,6 @@ strong {
 }
 
 /* utilities */
-.font-block {
-  font-display: block;
-}
 .text-center {
   text-align: center;
 }

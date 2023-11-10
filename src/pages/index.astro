@@ -1,6 +1,8 @@
 ---
+export const prerender = true
 import { Image } from "astro:assets"
 import Layout from "../layout/Layout.astro"
+import Product from "../components/Product.astro"
 
 const baseURL = import.meta.env.VERCEL_URL
   ? `https://${import.meta.env.VERCEL_URL}`
@@ -35,7 +37,7 @@ export type ProductType = {
     <div>
       <Image
         loading="eager"
-        decoding="sync"
+        decoding="async"
         width={500}
         height={300}
         quality={"low"}
@@ -47,24 +49,7 @@ export type ProductType = {
   <section class="container mt-5">
     <h1 class="heading">Hot Picks</h1>
     <div class="grid mt-2">
-      {
-        products.map((all: ProductType) => (
-          <a href={`/shop/${all.slug}`} class="card radius flex flex-column">
-            <Image
-              alt={all.slug}
-              src={all.image.asset.url}
-              width={400}
-              height={400}
-            />
-            <h2
-              style="padding: 1rem; font-size: 1.1rem;"
-              class="flex flex-1 align-center"
-            >
-              {all.title}
-            </h2>
-          </a>
-        ))
-      }
+      {products.map((all: ProductType) => <Product {...all} />)}
     </div>
   </section>
 </Layout>
@@ -83,13 +68,6 @@ export type ProductType = {
   }
 
   header img {
-    object-fit: cover;
-  }
-
-  .card img {
-    margin-inline: auto;
-    width: 100%;
-    height: auto;
     object-fit: cover;
   }
 </style>

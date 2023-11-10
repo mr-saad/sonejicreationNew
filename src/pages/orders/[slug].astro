@@ -1,4 +1,5 @@
 ---
+export const prerender = false
 import { sheets } from "../api/shop"
 import { keys, type keysTypes } from "./index.astro"
 import Layout from "../../layout/Layout.astro"
@@ -89,9 +90,8 @@ for (let index = 0; index < keys.length; index++) {
         res.status === 200 && location.replace("/orders")
       } catch (error) {
         alert(error.message)
-      } finally {
-        cancelBtn.disabled = false
       }
     }
+    cancelBtn.disabled = false
   })
 </script>
