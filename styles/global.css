@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Bricolage Grotesque Variable";
+  src: url("/bricolagegrotesque-variablefont.woff2") format("woff2");
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;

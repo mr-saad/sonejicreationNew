@@ -20,6 +20,14 @@ const { slug, image, title } = Astro.props
 </a>
 
 <style>
+  .card {
+    border: none;
+  }
+  .card h2 {
+    border: var(--border);
+    border-top: none;
+    border-radius: 0 0 .3rem .3rem;
+  }
   .card img {
     max-width: 100%;
     height: auto;
