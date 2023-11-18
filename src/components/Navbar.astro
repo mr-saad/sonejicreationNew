@@ -6,7 +6,9 @@ const pathname = new URL(Astro.request.url).pathname
   <div class="container _navContainer">
     <h1><a href="/">Soneji Creation</a></h1>
     <div class="hamburger align-center">
+      <input title="Menu" type="checkbox" class="checky" />
       <svg
+        class="lines"
         style="transform: scale(1.15);"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -23,72 +25,62 @@ const pathname = new URL(Astro.request.url).pathname
           y1="12"
           y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
       >
-    </div>
-    <div class="navOverlay">
-      <ul>
-        <li class="closeNav align-center">
-          <svg
-            style="transform: scale(1.15);"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
-          >
-        </li>
-        <li>
-          <a class={pathname === "/" ? "activeLink" : ""} href="/">Home</a>
-        </li>
-        <li>
-          <a class={pathname.includes("/shop") ? "activeLink" : ""} href="/shop"
-            >Shop</a
-          >
-        </li>
-        <li>
-          <a
-            class={pathname.includes("/orders") ? "activeLink" : ""}
-            href="/orders">Orders</a
-          >
-        </li>
-        <li>
-          <a
-            class={pathname === "/testimonials/" ? "activeLink" : ""}
-            href="/testimonials">Testimonials</a
-          >
-        </li>
-        <li>
-          <a class={pathname === "/about/" ? "activeLink" : ""} href="/about"
-            >About</a
-          >
-        </li>
-        <li>
-          <a
-            class={pathname === "/contact/" ? "activeLink" : ""}
-            href="/contact">Contact</a
-          >
-        </li>
-        <li>
-          <a class={pathname === "/blog/" ? "activeLink" : ""} href="/blog"
-            >Blog</a
-          >
-        </li>
-      </ul>
+      <div class="navOverlay">
+        <ul>
+          <li class="closeNav align-center">
+            <svg
+              style="transform: scale(1.15);"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+            >
+          </li>
+          <li>
+            <a class={pathname === "/" ? "activeLink" : ""} href="/">Home</a>
+          </li>
+          <li>
+            <a
+              class={pathname.includes("/shop") ? "activeLink" : ""}
+              href="/shop">Shop</a
+            >
+          </li>
+          <li>
+            <a
+              class={pathname.includes("/orders") ? "activeLink" : ""}
+              href="/orders">Orders</a
+            >
+          </li>
+          <li>
+            <a
+              class={pathname === "/testimonials/" ? "activeLink" : ""}
+              href="/testimonials">Testimonials</a
+            >
+          </li>
+          <li>
+            <a class={pathname === "/about/" ? "activeLink" : ""} href="/about"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              class={pathname === "/contact/" ? "activeLink" : ""}
+              href="/contact">Contact</a
+            >
+          </li>
+          <li>
+            <a class={pathname === "/blog/" ? "activeLink" : ""} href="/blog"
+              >Blog</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
-
-<script>
-  const hamburger = document.querySelector(".hamburger")
-  const closeNav = document.querySelector(".closeNav")
-  hamburger?.addEventListener("click", () => {
-    document.querySelector(".navOverlay")?.classList.add("navOpen")
-  })
-  closeNav?.addEventListener("click", () => {
-    document.querySelector(".navOverlay")?.classList.remove("navOpen")
-  })
-</script>

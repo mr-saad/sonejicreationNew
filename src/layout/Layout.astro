@@ -1,7 +1,6 @@
 ---
 import Navbar from "../components/Navbar.astro"
 import Footer from "../components/Footer.astro"
-// import "@fontsource-variable/bricolage-grotesque"
 import "../../styles/global.css"
 ---
 
@@ -11,7 +10,13 @@ import "../../styles/global.css"
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{Astro.props.title} | Soneji Creation</title>
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="/bricolagegrotesque-variablefont.woff2" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/bricolagegrotesque-variablefont.woff2"
+    />
   </head>
   <body>
     <Navbar />

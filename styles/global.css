@@ -175,9 +175,18 @@ nav {
   box-shadow: 0 6px 30px var(--nuetral);
   padding-block: 1rem;
 }
+.navOverlay {
+  height: 100%;
+}
+
 .hamburger {
+  position: relative;
+}
+.hamburger .checky,
+.hamburger .lines {
   display: none;
 }
+
 nav ul .closeNav {
   display: none;
 }
@@ -239,15 +248,32 @@ nav ul {
 @media (max-width: 786px) {
   .hamburger {
     display: flex;
-    line-height: 36px;
   }
-  nav ul .closeNav {
+  .hamburger .checky,
+  .hamburger .lines {
+    display: initial;
+  }
+
+  .checky {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    appearance: none;
+    border: none;
+  }
+  .checky:focus {
+    border: none;
+  }
+  .checky:checked {
+    right: 3.6rem;
+  }
+  .navOverlay ul .closeNav {
     display: flex;
-    line-height: 36px;
     position: absolute;
     top: 1.4rem;
     right: 1rem;
   }
+
   .navOverlay {
     position: fixed;
     width: 100%;
@@ -266,14 +292,14 @@ nav ul {
     transition-delay: 400ms;
   }
 
-  .navOverlay.navOpen {
+  .checky:checked ~ .navOverlay {
     transition-delay: 0ms;
     opacity: 1;
     visibility: visible;
     pointer-events: all;
   }
 
-  nav ul {
+  .navOverlay ul {
     position: relative;
     padding: 1rem;
     padding-block-start: 5rem;
@@ -295,7 +321,7 @@ nav ul {
     -o-transform: translateX(-101%);
     transition-delay: 0ms;
   }
-  .navOpen ul {
+  .checky:checked ~ .navOverlay ul {
     transition-delay: 400ms;
     transform: translateX(0);
     -webkit-transform: translateX(0);
