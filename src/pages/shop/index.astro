@@ -5,7 +5,19 @@ export const config  = {
 import Layout from "../../layout/Layout.astro"
 import type { ProductType } from "../index.astro"
 import Product from "../../components/Product.astro"
-import getProducts from "../../utils/getProducts"
+//import getProducts from "../../utils/getProducts"
+
+async function getProducts(count?: number) {
+  return await sanity.fetch(
+    `*[_type=="products"][0..$count]{
+              title,
+              "slug":slug.current,
+              "image":images[0]{asset->{url}},
+          }
+          `,
+    { count: count || -1 }
+  )
+}
 
 const products = await getProducts()
 ---
