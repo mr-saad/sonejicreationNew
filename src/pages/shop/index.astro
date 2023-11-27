@@ -6,6 +6,7 @@ import Layout from "../../layout/Layout.astro"
 import type { ProductType } from "../index.astro"
 import Product from "../../components/Product.astro"
 //import getProducts from "../../utils/getProducts"
+import sanity from "../../utils/sanity"
 
 async function getProducts(count?: number) {
   return await sanity.fetch(
