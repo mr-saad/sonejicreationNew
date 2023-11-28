@@ -1,7 +1,3 @@
-export const config = {
-  runtime:"edge"
-}
-
 import sanity from "./sanity"
 export default async function getProducts(count?: number) {
   return await sanity.fetch(
