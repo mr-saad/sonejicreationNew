@@ -6,7 +6,12 @@ const pathname = new URL(Astro.request.url).pathname
   <div class="container _navContainer">
     <h1><a href="/">Soneji Creation</a></h1>
     <div class="hamburger align-center">
-      <input title="Menu" type="checkbox" class="checky" />
+      <input
+        title="Menu"
+        type="checkbox"
+        onclick="document.documentElement.classList.toggle('over-hidden');"
+        class="checky"
+      />
       <svg
         class="lines"
         style="transform: scale(1.15);"
@@ -25,9 +30,9 @@ const pathname = new URL(Astro.request.url).pathname
           y1="12"
           y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
       >
-      <div class="navOverlay">
+      <div class="navOverlay closeNav">
         <ul>
-          <li class="closeNav align-center">
+          <li class="closeNav navCross align-center">
             <svg
               style="transform: scale(1.15);"
               xmlns="http://www.w3.org/2000/svg"
@@ -84,3 +89,164 @@ const pathname = new URL(Astro.request.url).pathname
     </div>
   </div>
 </nav>
+<script>
+  document.querySelector<HTMLUListElement>(".closeNav").onclick = () => {
+    console.log("hti")
+    document.querySelector<HTMLInputElement>(".checky").checked = false
+    document.documentElement.classList.remove("over-hidden")
+  }
+  let stop = true
+  document.querySelector<HTMLUListElement>(".navOverlay ul").onclick = e =>
+    stop && e.stopPropagation()
+  document.querySelector<HTMLUListElement>(".navCross").onclick = e =>
+    (stop = false)
+</script>
+
+<style>
+  nav {
+    border-bottom: 1px solid var(--nuetral);
+    box-shadow: 0 6px 30px var(--nuetral);
+    padding-block: 1rem;
+  }
+  .navOverlay {
+    height: 100%;
+  }
+
+  .hamburger {
+    position: relative;
+  }
+  .hamburger .checky,
+  .hamburger .lines {
+    display: none;
+  }
+
+  nav ul .closeNav {
+    display: none;
+  }
+  nav a {
+    text-decoration: none;
+    color: inherit;
+  }
+  nav ul li {
+    padding-inline: 1rem;
+    font-weight: bold;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    -webkit-transition: var(--transition);
+    -moz-transition: var(--transition);
+    -ms-transition: var(--transition);
+    -o-transition: var(--transition);
+  }
+  nav ul li a:hover {
+    color: #000;
+  }
+  nav ul li a.activeLink {
+    color: #000;
+  }
+
+  .navOverlay {
+    display: flex;
+    align-items: center;
+  }
+
+  ._navContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 0;
+    padding-top: 0;
+  }
+  ._navContainer h1 {
+    z-index: 2;
+  }
+  nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+  }
+  @media (max-width: 786px) {
+    .hamburger {
+      display: flex;
+    }
+    .hamburger .checky,
+    .hamburger .lines {
+      display: initial;
+    }
+
+    .checky {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      appearance: none;
+      border: none;
+    }
+    .checky:focus {
+      border: none;
+    }
+
+    .navOverlay ul .closeNav {
+      display: flex;
+      position: absolute;
+      top: 1.4rem;
+      right: 1rem;
+    }
+
+    .navOverlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: rgba(0, 0, 0, 0.7);
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      -webkit-transition: var(--transition);
+      -moz-transition: var(--transition);
+      -ms-transition: var(--transition);
+      -o-transition: var(--transition);
+      transition-delay: 400ms;
+    }
+
+    .checky:checked ~ .navOverlay {
+      transition-delay: 0ms;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+    }
+
+    .navOverlay ul {
+      position: relative;
+      padding: 1rem;
+      padding-block-start: 5rem;
+      width: 90%;
+      height: 100%;
+      gap: 2rem;
+      align-items: start;
+      flex-direction: column;
+      background: #fff;
+      transform: translateX(-101%);
+      transition: var(--transition);
+      -webkit-transition: var(--transition);
+      -moz-transition: var(--transition);
+      -ms-transition: var(--transition);
+      -o-transition: var(--transition);
+      -webkit-transform: translateX(-101%);
+      -moz-transform: translateX(-101%);
+      -ms-transform: translateX(-101%);
+      -o-transform: translateX(-101%);
+      transition-delay: 0ms;
+    }
+    .checky:checked ~ .navOverlay ul {
+      transition-delay: 400ms;
+      transform: translateX(0);
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -o-transform: translateX(0);
+    }
+  }
+</style>

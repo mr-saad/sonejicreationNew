@@ -1,6 +1,5 @@
 ---
 export const prerender = true
-import { Image } from "astro:assets"
 import Layout from "../layout/Layout.astro"
 import Product from "../components/Product.astro"
 import getProducts from "../utils/getProducts"
@@ -18,20 +17,25 @@ export type ProductType = {
 ---
 
 <Layout title="Home">
+  <link
+    rel="preload"
+    as="image"
+    type="image/webp"
+    href="/soneji-creation-logo-white-background.webp"
+  />
   <header class="container">
     <div>
       <h1>Soneji Creation</h1>
       <p>Your Gateway to Exquisite Creations</p>
     </div>
     <div>
-      <Image
+      <img
         loading="eager"
         decoding="async"
-        width={500}
+        width={400}
         height={300}
-        quality={"low"}
-        src="https://as1.ftcdn.net/v2/jpg/03/65/42/54/1000_F_365425497_3RNg4T1W0eDE0tHZSeUHAq3NGWOEGQBA.jpg"
-        alt="HeroImage"
+        src="/soneji-creation-logo-white-background.webp"
+        alt="Soneji Creation Logo"
       />
     </div>
   </header>
@@ -50,13 +54,26 @@ export type ProductType = {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    overflow: hidden;
   }
 
   header h1 {
     font-size: 3.65rem;
+    line-height: 0.9;
+    letter-spacing: -0.14rem;
+    background: linear-gradient(#555, #000);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    padding-bottom: 1rem;
   }
 
   header img {
     object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+    }
   }
 </style>

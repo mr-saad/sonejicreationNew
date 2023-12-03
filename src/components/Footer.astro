@@ -1,16 +1,12 @@
----
-import { Image } from "astro:assets"
----
-
 <footer>
   <div class="container _footerContainer">
-    <Image
-      quality={"low"}
-      style="object-fit: cover"
+    <img
+      loading="eager"
+      decoding="async"
       width={400}
       height={200}
-      src="https://as1.ftcdn.net/v2/jpg/03/65/42/54/1000_F_365425497_3RNg4T1W0eDE0tHZSeUHAq3NGWOEGQBA.jpg"
-      alt="FooterImage"
+      src="/soneji-creation-logo-white-background.webp"
+      alt="Soneji Creation Logo"
     />
     <div>
       <form class="newsLatter">
@@ -59,6 +55,10 @@ import { Image } from "astro:assets"
     border-top: var(--border);
     box-shadow: 0 -6px 30px var(--nuetral);
     padding-block: 1rem;
+  }
+
+  footer img {
+    object-fit: cover;
   }
 
   ul {
