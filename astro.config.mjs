@@ -5,11 +5,15 @@ import react from "@astrojs/react"
 // https://astro.build/config
 export default defineConfig({
   image: {
-    domains: ["cdn.sanity.io", "as1.ftcdn.net"]
+    domains: ["cdn.sanity.io"]
   },
   integrations: [react()],
   output: "server",
   adapter: vercel({
-    edgeMiddleware:true
-  })
+    edgeMiddleware: true
+  }),
+  prefetch:{
+    defaultStrategy: "viewport",
+    prefetchAll: true
+  }
 })
