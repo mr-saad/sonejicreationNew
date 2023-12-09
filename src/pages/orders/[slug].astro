@@ -28,10 +28,10 @@ for (let index = 0; index < keys.length; index++) {
 
 <Layout title={orderObject.productTitle}>
   <section class="container">
-    <p>
-      {Astro.url.pathname}
+    <p style="text-transform: capitalize;">
+      Home {Astro.url.pathname.split("/").join(" > ")}
     </p>
-    <div class="slug_card flex mt-2 gap2">
+    <div class="slug_card flex mt-1 gap2">
       <div class="flex-1">
         <Image
           width={400}

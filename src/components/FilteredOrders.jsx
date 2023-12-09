@@ -24,7 +24,7 @@ export default function FilteredOrders({ allOrders }) {
             src={productImg}
             width={75}
             className={styles.image}
-            height={75}
+            height={50}
           />
 
           <div className={styles.details}>

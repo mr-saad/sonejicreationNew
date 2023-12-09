@@ -10,6 +10,7 @@ const { slug, image, title } = Astro.props
     src={image.asset.url}
     width={400}
     height={400}
+    loading="eager"
   />
   <h2
     style="padding: 1rem; font-size: 1.1rem;"
@@ -26,7 +27,7 @@ const { slug, image, title } = Astro.props
   .card h2 {
     border: var(--border);
     border-top: none;
-    border-radius: 0 0 .3rem .3rem;
+    border-radius: 0 0 0.3rem 0.3rem;
   }
   .card img {
     max-width: 100%;

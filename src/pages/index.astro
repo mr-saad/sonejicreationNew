@@ -18,6 +18,7 @@ export type ProductType = {
 
 <Layout title="Home">
   <link
+    slot="landingPge"
     rel="preload"
     as="image"
     type="image/webp"
@@ -33,7 +34,7 @@ export type ProductType = {
         loading="eager"
         decoding="async"
         width={400}
-        height={300}
+        height={200}
         src="/soneji-creation-logo-white-background.webp"
         alt="Soneji Creation Logo"
       />
@@ -58,7 +59,7 @@ export type ProductType = {
   }
 
   header h1 {
-    font-size: 3.65rem;
+    font-size: 3.9rem;
     line-height: 0.9;
     letter-spacing: -0.14rem;
     background: linear-gradient(#555, #000);
@@ -68,12 +69,17 @@ export type ProductType = {
   }
 
   header img {
+    aspect-ratio: 1;
     object-fit: cover;
   }
 
   @media (max-width: 768px) {
     header {
       flex-direction: column;
+    }
+    .container {
+      justify-content: stretch;
+      gap: 2rem;
     }
   }
 </style>

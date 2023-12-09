@@ -71,6 +71,9 @@ strong {
 .gap2 {
   gap: 2rem;
 }
+.mt-1 {
+  margin-top: 1rem;
+}
 .mt-2 {
   margin-top: 1.5rem;
 }
@@ -103,8 +106,8 @@ strong {
 }
 
 img {
-  display: block;
   max-width: 100%;
+  vertical-align: bottom;
 }
 input,
 textarea {

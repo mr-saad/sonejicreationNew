@@ -20,22 +20,37 @@ const product = await sanity.fetch(
 
 <Layout title={product.title}>
   <section class="container">
-    <p>
-      {Astro.url.pathname}
+    <p style="text-transform: capitalize;">
+      Home {Astro.url.pathname.split("/").join(" > ")}
     </p>
-    <div class="slug_card flex mt-2 gap2">
+    <div class="slug_card flex mt-1 gap2">
       <div class="flex-1">
-        {
-          product.images && (
-            <Image
-              width={400}
-              height={400}
-              alt={product.slug}
-              src={product.images[0].asset.url}
-              class="radius"
-            />
-          )
-        }
+        <div class="imgSwiper">
+          <Image
+            width={400}
+            height={350}
+            alt={product.slug}
+            src={product.images[0].asset.url}
+            class="radius"
+            loading="eager"
+            style={{ scrollSnapAlign: "center" }}
+          />
+
+          {
+            product.images
+              .slice(1)
+              .map(({ asset: { url } }) => (
+                <Image
+                  width={400}
+                  height={350}
+                  alt={product.slug}
+                  src={url}
+                  class="radius"
+                  style={{ scrollSnapAlign: "center" }}
+                />
+              ))
+          }
+        </div>
         <h2 class="capitalize" style="margin-top: 1rem;">{product.title}</h2>
         {product.blockContent && <PortableText value={product.blockContent} />}
         <button
@@ -154,8 +169,13 @@ const product = await sanity.fetch(
 <style>
   .slug_card img {
     width: 100%;
-    height: auto;
     object-fit: cover;
+    object-position: center;
+  }
+  .imgSwiper {
+    overflow: auto;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
   }
   .bookForm {
     visibility: hidden;
