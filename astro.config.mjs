@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config"
 import vercel from "@astrojs/vercel/serverless"
 import react from "@astrojs/react"
-
+// import node from "@astrojs/node"
 // https://astro.build/config
 export default defineConfig({
   image: {
@@ -9,10 +9,14 @@ export default defineConfig({
   },
   integrations: [react()],
   output: "server",
-  adapter: vercel({
-    edgeMiddleware: true
-  }),
-  prefetch:{
+  /*  node({
+    mode: "standalone"
+  }), */
+  adapter: vercel(),
+  experimental: {
+    contentCollectionCache: true
+  },
+  prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: true
   }

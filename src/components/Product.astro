@@ -5,11 +5,11 @@ const { slug, image, title } = Astro.props
 
 <a href={`/shop/${slug}`} class="card radius flex flex-column">
   <Image
-    quality={"mid"}
+    quality={"high"}
     alt={slug}
     src={image.asset.url}
     width={400}
-    height={400}
+    height={350}
     loading="eager"
   />
   <h2

@@ -24,15 +24,15 @@ const product = await sanity.fetch(
       Home {Astro.url.pathname.split("/").join(" > ")}
     </p>
     <div class="slug_card flex mt-1 gap2">
-      <div class="flex-1">
-        <div class="imgSwiper">
+      <div style="flex-basis: 50%;">
+        <div class="imgSwiper radius">
           <Image
             width={400}
             height={350}
             alt={product.slug}
             src={product.images[0].asset.url}
-            class="radius"
             loading="eager"
+            decoding="async"
             style={{ scrollSnapAlign: "center" }}
           />
 
@@ -45,7 +45,6 @@ const product = await sanity.fetch(
                   height={350}
                   alt={product.slug}
                   src={url}
-                  class="radius"
                   style={{ scrollSnapAlign: "center" }}
                 />
               ))
@@ -96,7 +95,10 @@ const product = await sanity.fetch(
           value={product.images[0].asset.url}
           id="productImg"
         />
-        <button id="confirmBtn" type="submit">Confirm</button>
+        <div class="flex gap">
+          <button id="confirmBtn" type="submit">Confirm</button>
+          <button id="cancelBtn" type="button">Cancel</button>
+        </div>
       </form>
     </div>
   </section>
@@ -105,9 +107,15 @@ const product = await sanity.fetch(
   const bookForm = document.querySelector<HTMLFormElement>(".bookForm")
 
   const purchaseBtn = document.getElementById("purchaseBtn")
+  const cancelBtn = document.getElementById("cancelBtn")
   const confirmBtn = document.querySelector<HTMLButtonElement>("#confirmBtn")
   purchaseBtn.addEventListener("click", () => {
-    document.querySelector(".bookForm").classList.toggle("show")
+    purchaseBtn.style.display = "none"
+    document.querySelector(".bookForm").classList.add("show")
+  })
+  cancelBtn.addEventListener("click", () => {
+    purchaseBtn.style.display = "block"
+    document.querySelector(".bookForm").classList.remove("show")
   })
 
   bookForm.addEventListener("submit", async e => {
@@ -178,18 +186,12 @@ const product = await sanity.fetch(
     scroll-snap-type: x mandatory;
   }
   .bookForm {
-    visibility: hidden;
-    pointer-events: none;
-    opacity: 0;
     flex: 1;
     gap: 1rem;
-    height: 0;
+    display: none;
   }
   .bookForm.show {
-    visibility: visible;
-    pointer-events: all;
-    opacity: 1;
-    height: auto;
+    display: flex;
   }
   .input-group {
     display: flex;

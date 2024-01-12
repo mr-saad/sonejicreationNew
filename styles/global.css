@@ -35,6 +35,9 @@ strong {
 .over-hidden {
   overflow: hidden;
 }
+.heading {
+  font-size: 2rem;
+}
 .text-center {
   text-align: center;
 }
@@ -49,9 +52,6 @@ strong {
 }
 .flex-1 {
   flex: 1;
-}
-.block {
-  display: block;
 }
 .flex-column {
   flex-direction: column;
@@ -109,6 +109,7 @@ img {
   max-width: 100%;
   vertical-align: bottom;
 }
+
 input,
 textarea {
   transition: var(--transition);
@@ -132,6 +133,7 @@ textarea:focus-within {
 textarea {
   resize: vertical;
 }
+
 button {
   cursor: pointer;
   background: #000;
@@ -164,9 +166,7 @@ button:disabled {
   margin-inline: auto;
   padding-top: 1rem;
 }
-.heading {
-  font-size: 2rem;
-}
+
 form {
   max-width: 500px;
   display: flex;
@@ -182,6 +182,7 @@ form button {
   footer {
     padding-inline: 1rem;
   }
+
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }

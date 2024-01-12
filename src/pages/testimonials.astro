@@ -22,7 +22,7 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
                 <Image
                   width={50}
                   height={50}
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                   src={elems.avatar.asset.url}
                   alt="Avatar"

@@ -1,9 +1,5 @@
 ---
 export const prerender = true
-import Layout from "../layout/Layout.astro"
-import Product from "../components/Product.astro"
-import getProducts from "../utils/getProducts"
-const products = await getProducts(2)
 
 export type ProductType = {
   slug: string
@@ -14,6 +10,11 @@ export type ProductType = {
   }
   title: string
 }
+
+import Layout from "../layout/Layout.astro"
+import Product from "../components/Product.astro"
+import getProducts from "../utils/getProducts"
+const products = await getProducts(2)
 ---
 
 <Layout title="Home">
@@ -25,7 +26,7 @@ export type ProductType = {
     href="/soneji-creation-logo-white-background.webp"
   />
   <header class="container">
-    <div>
+    <div class="text-center">
       <h1>Soneji Creation</h1>
       <p>Your Gateway to Exquisite Creations</p>
     </div>
@@ -40,7 +41,7 @@ export type ProductType = {
       />
     </div>
   </header>
-  <section class="container mt-5">
+  <section class="container mt-1">
     <h1 class="heading">Hot Picks</h1>
     <div class="grid mt-2">
       {products.map((all: ProductType) => <Product {...all} />)}
@@ -54,15 +55,13 @@ export type ProductType = {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    overflow: hidden;
   }
 
   header h1 {
     font-size: 3.9rem;
     line-height: 0.9;
     letter-spacing: -0.14rem;
-    background: linear-gradient(#555, #000);
+    background: linear-gradient(180deg, #555, #000);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     padding-bottom: 1rem;
@@ -76,10 +75,10 @@ export type ProductType = {
   @media (max-width: 768px) {
     header {
       flex-direction: column;
+      margin-top: 3rem;
     }
     .container {
       justify-content: stretch;
-      gap: 2rem;
     }
   }
 </style>
