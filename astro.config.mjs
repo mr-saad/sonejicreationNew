@@ -13,9 +13,6 @@ export default defineConfig({
     mode: "standalone"
   }), */
   adapter: vercel(),
-  experimental: {
-    contentCollectionCache: true
-  },
   prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: true
