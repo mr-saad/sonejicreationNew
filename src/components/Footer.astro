@@ -39,7 +39,9 @@
       </div>
       <hr style="margin-top: 2rem" />
       <div class="copyright flex">
-        <p>All Rights Reserved &copy;Soneji Creation.2023</p>
+        <p>
+          All Rights Reserved &copy;Soneji Creation.{new Date().getFullYear()}
+        </p>
         <div>
           <a href="/terms-conditions">Terms & Conditions</a>{" | "}
           <a href="/privacy-policy">Privacy Policy</a>
@@ -71,7 +73,7 @@
   }
   .newsLatter {
     flex-direction: row;
-    margin-block: 2rem;
+    margin-bottom: 2rem;
   }
   .newsLatter input {
     border-top-right-radius: 0;
@@ -81,7 +83,8 @@
   .newsLatter button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-left: none;
+    border-color: #888;
+    box-shadow: none;
   }
   .copyright {
     display: flex;
@@ -102,6 +105,7 @@
   @media (max-width: 768px) {
     .copyright {
       flex-direction: column-reverse;
+      align-items: start;
     }
   }
 </style>

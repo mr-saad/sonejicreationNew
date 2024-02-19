@@ -14,14 +14,14 @@ const product = await sanity.fetch(
     blockContent
   }
 `,
-  { slug: Astro.params.slug }
+  { slug: Astro.params.slug },
 )
 ---
 
 <Layout title={product.title}>
   <section class="container">
-    <p style="text-transform: capitalize;">
-      Home {Astro.url.pathname.split("/").join(" > ")}
+    <p>
+      {Astro.url.pathname}
     </p>
     <div class="slug_card flex mt-1 gap2">
       <div style="flex-basis: 50%;">
@@ -109,16 +109,16 @@ const product = await sanity.fetch(
   const purchaseBtn = document.getElementById("purchaseBtn")
   const cancelBtn = document.getElementById("cancelBtn")
   const confirmBtn = document.querySelector<HTMLButtonElement>("#confirmBtn")
-  purchaseBtn.addEventListener("click", () => {
+  purchaseBtn.onclick = () => {
     purchaseBtn.style.display = "none"
     document.querySelector(".bookForm").classList.add("show")
-  })
-  cancelBtn.addEventListener("click", () => {
+  }
+  cancelBtn.onclick = () => {
     purchaseBtn.style.display = "block"
     document.querySelector(".bookForm").classList.remove("show")
-  })
+  }
 
-  bookForm.addEventListener("submit", async e => {
+  bookForm.onsubmit = async (e) => {
     e.preventDefault()
     confirmBtn.disabled = true
     const fullname =
@@ -147,7 +147,7 @@ const product = await sanity.fetch(
         ? localStorage.getItem("userId")
         : userId,
       productImg,
-      orderId
+      orderId,
     }
     const values = Object.entries(bookObj).map(([key, value]) => value)
 
@@ -155,9 +155,9 @@ const product = await sanity.fetch(
       const res = await fetch("/shop/new", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(values),
       })
       if (res.status === 200) {
         const data = await res.json()
@@ -171,19 +171,20 @@ const product = await sanity.fetch(
     } finally {
       confirmBtn.disabled = false
     }
-  })
+  }
 </script>
 
 <style>
-  .slug_card img {
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
   .imgSwiper {
     overflow: auto;
     white-space: nowrap;
     scroll-snap-type: x mandatory;
+    font-size: 0;
+  }
+  .imgSwiper img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
   }
   .bookForm {
     flex: 1;

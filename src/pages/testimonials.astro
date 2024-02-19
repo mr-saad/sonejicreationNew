@@ -15,7 +15,7 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
     <h2 class="heading">Testimonials</h2>
     <div class="grid">
       {
-        testimonials.map(elems => (
+        testimonials.map((elems) => (
           <div class="testimonial_card radius">
             <div class="flex align-center gap">
               {elems.avatar && (
@@ -26,11 +26,14 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
                   decoding="async"
                   src={elems.avatar.asset.url}
                   alt="Avatar"
+                  style={{ alignSelf: "flex-start" }}
                 />
               )}
-              <h3>{elems.username}</h3>
+              <div>
+                <h3>{elems.username}</h3>
+                <p style="margin-top: 0.5rem;">{elems.review}</p>
+              </div>
             </div>
-            <p style="margin-top: 0.5rem;">{elems.review}</p>
           </div>
         ))
       }
@@ -63,7 +66,7 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
     review = document.querySelector<HTMLInputElement>(".review"),
     sendBtn = document.querySelector<HTMLButtonElement>("#sendBtn")
 
-  reviewForm.addEventListener("submit", async e => {
+  reviewForm.addEventListener("submit", async (e) => {
     e.preventDefault()
 
     sendBtn.disabled = true
@@ -71,13 +74,13 @@ const testimonials = await sanity.fetch(`*[_type=="testimonials"]{
       const res = await fetch("/api/testimonial", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           _type: "testimonials",
           username: username.value,
-          review: review.value
-        })
+          review: review.value,
+        }),
       })
       if (res.status === 200) {
         alert("Thanks For Reviewing Us")

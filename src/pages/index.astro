@@ -26,20 +26,15 @@ const products = await getProducts(2)
     href="/soneji-creation-logo-white-background.webp"
   />
   <header class="container">
-    <div class="text-center">
-      <h1>Soneji Creation</h1>
-      <p>Your Gateway to Exquisite Creations</p>
-    </div>
-    <div>
-      <img
-        loading="eager"
-        decoding="async"
-        width={400}
-        height={200}
-        src="/soneji-creation-logo-white-background.webp"
-        alt="Soneji Creation Logo"
-      />
-    </div>
+    <img
+      loading="eager"
+      decoding="async"
+      width={500}
+      height={160}
+      src="/soneji-creation-logo-white-background.webp"
+      alt="Soneji Creation Logo"
+    />
+    <p>Your Gateway to Exquisite Creations</p>
   </header>
   <section class="container mt-1">
     <h1 class="heading">Hot Picks</h1>
@@ -51,13 +46,13 @@ const products = await getProducts(2)
 
 <style>
   header {
-    min-height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
   }
 
-  header h1 {
+  /* header h1 {
     font-size: 3.9rem;
     line-height: 0.9;
     letter-spacing: -0.14rem;
@@ -65,17 +60,18 @@ const products = await getProducts(2)
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     padding-bottom: 1rem;
-  }
+  } */
 
   header img {
     aspect-ratio: 1;
     object-fit: cover;
+    margin-top: 3rem;
   }
 
   @media (max-width: 768px) {
     header {
       flex-direction: column;
-      margin-top: 3rem;
+      /* margin-top: 3rem; */
     }
     .container {
       justify-content: stretch;

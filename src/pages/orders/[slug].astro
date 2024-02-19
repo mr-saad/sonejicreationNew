@@ -5,9 +5,9 @@ import Layout from "../../layout/Layout.astro"
 import { Image } from "astro:assets"
 const orders = await sheets.spreadsheets.values.get({
   spreadsheetId: import.meta.env.spreadsheetId,
-  range: "Orders!A2:I"
+  range: "Orders!A2:I",
 })
-const order = orders.data.values.filter(all => {
+const order = orders.data.values.filter((all) => {
   return all[8] === Astro.params.slug
 })
 let orderObject: keysTypes = {
@@ -19,7 +19,7 @@ let orderObject: keysTypes = {
   productTitle: "",
   userId: "",
   productImg: "",
-  orderId: ""
+  orderId: "",
 }
 for (let index = 0; index < keys.length; index++) {
   orderObject[keys[index]] = order[0][index]
@@ -28,8 +28,8 @@ for (let index = 0; index < keys.length; index++) {
 
 <Layout title={orderObject.productTitle}>
   <section class="container">
-    <p style="text-transform: capitalize;">
-      Home {Astro.url.pathname.split("/").join(" > ")}
+    <p>
+      {Astro.url.pathname}
     </p>
     <div class="slug_card flex mt-1 gap2">
       <div class="flex-1">
@@ -79,7 +79,7 @@ for (let index = 0; index < keys.length; index++) {
 <script>
   const cancelBtn = document.getElementById("cancelBtn") as HTMLButtonElement,
     orderId = document.getElementById("orderId") as HTMLInputElement
-  cancelBtn.addEventListener("click", async e => {
+  cancelBtn.addEventListener("click", async (e) => {
     cancelBtn.disabled = true
     const confirmCancel = confirm("Your Order Will Be Canceled, Sure?")
     if (confirmCancel) {
@@ -87,9 +87,9 @@ for (let index = 0; index < keys.length; index++) {
         const res = await fetch("/api/cancelOrder", {
           method: "post",
           headers: {
-            "content-type": "application/json"
+            "content-type": "application/json",
           },
-          body: JSON.stringify({ orderId: orderId.value })
+          body: JSON.stringify({ orderId: orderId.value }),
         })
         res.status === 200 && location.replace("/orders")
       } catch (error) {
